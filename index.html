@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nahom A. Worku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Lato:wght@400;700&display=swap">
+<style>
+/* VOICE: clinical and precise, a researcher's portfolio; few hues, lots of air.
+   IDEA: an epidemic lattice model, the stochastic grid Nahom used to study COVID-19 spread.
+   PICTURE: a live SIR lattice across the top of the header band, with counts.
+   COLOUR and TYPE: the Nahom A. Worku design system: primary #0b5e7e, primary-deep #0a2a3a, orange accent as fills only; Montserrat + Lato.
+   LAYOUT: full-width bands alternating paper/mist; header and footer in primary-deep; a filterable project list. */
+:root{color-scheme:light dark;
+--paper:light-dark(#ffffff,#0e1a22);--mist:light-dark(#eef3f6,#13232d);--ink:light-dark(#16232e,#e7eef2);
+--muted:light-dark(#4f5d6a,#a3b2bd);--primary:light-dark(#0b5e7e,#6cc3e0);--deep:light-dark(#0a2a3a,#071820);
+--tint:light-dark(#d6eaf1,#1d3a48);--accent:light-dark(#d9822b,#e8954a);--hair:light-dark(#cfd8df,#2a3d49);
+--onDeep:#f2f7fa;--onDeepMuted:#b9cbd6;
+--display:Montserrat,"Helvetica Neue",Arial,sans-serif;--body:Lato,"Helvetica Neue",Arial,sans-serif}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body);overflow-x:clip}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+a{color:var(--primary);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,3.4vw,36px);line-height:1.1;color:var(--primary);font-weight:600}
+h2::after{content:"";display:block;width:48px;height:4px;background:var(--accent);margin-top:12px}
+h3{font-size:20px;line-height:1.3;font-weight:600}
+p{margin:0}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(40px,6vw,64px) max(5vw,16px)}
+.mist{background:var(--mist)}
+/* nav */
+nav{position:sticky;top:0;z-index:5;background:var(--deep);color:var(--onDeep);border-bottom:1px solid rgba(255,255,255,.08)}
+nav .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:4px 20px;padding:10px max(5vw,16px)}
+nav .brand{font-family:var(--display);font-weight:700;color:var(--onDeep);text-decoration:none;margin-right:auto;padding:10px 0}
+nav .links{display:flex;flex-wrap:wrap;gap:0 18px}
+nav .links a{color:var(--onDeepMuted);text-decoration:none;padding:10px 0;font-size:15px}
+nav .links a:hover{color:var(--onDeep)}
+/* hero */
+.hero{background:var(--deep);color:var(--onDeep);padding:0 max(5vw,16px) clamp(40px,6vw,72px)}
+.fig{position:relative;height:clamp(220px,34vw,360px);margin:0 calc(-1*max(5vw,16px))}
+.fig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.simbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding:14px 0 0;font-size:14px;color:var(--onDeepMuted)}
+.key{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.key i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.key b{color:var(--onDeep);font-variant-numeric:tabular-nums;min-width:3.2em;display:inline-block}
+.simbar button{margin-left:auto;font:600 14px var(--body);color:var(--onDeep);background:transparent;border:1px solid #6a8494;border-radius:8px;min-height:44px;padding:0 16px;cursor:pointer}
+.simbar button:hover{background:rgba(255,255,255,.08)}
+.hero .intro{display:grid;grid-template-columns:auto minmax(0,1.3fr) minmax(0,1fr);gap:32px 64px;align-items:end;margin-top:clamp(28px,4vw,48px)}
+.hero h1{font-size:clamp(44px,7vw,84px);line-height:.98;letter-spacing:-.01em;font-weight:700}
+.roles{margin-top:16px;font-family:var(--display);font-weight:600;font-size:15px;color:var(--onDeepMuted);line-height:1.6}
+.hero .lede{font-size:17px;color:var(--onDeep);max-width:60ch}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:8px;font-weight:700;text-decoration:none;font-size:15px}
+.btn.solid{background:var(--onDeep);color:#0a2a3a}
+.btn.line{border:1px solid #6a8494;color:var(--onDeep)}
+.cap{font-size:13px;color:var(--onDeepMuted);margin-top:8px}
+/* about */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px 64px;margin-top:32px}
+.bio p+p{margin-top:16px}
+blockquote{margin:24px 0 0;padding:0;font-family:var(--display);font-weight:600;font-size:20px;line-height:1.4;color:var(--primary)}
+.sub{font-family:var(--display);font-weight:600;font-size:15px;color:var(--muted);margin:0 0 12px}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:4px 16px;padding:14px 0;border-top:1px solid var(--hair)}
+.tl li:last-child{border-bottom:1px solid var(--hair)}
+.tl time{font-size:13px;color:var(--muted);white-space:nowrap;padding-top:3px}
+.tl strong{display:block;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.35}
+.tl span{color:var(--muted);font-size:15px}
+.tl p{margin-top:6px;font-size:15px}
+.edu{margin-top:32px}
+/* projects */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 8px}
+.filters button{font:600 14px var(--body);min-height:44px;padding:0 16px;border-radius:9999px;border:1px solid var(--hair);background:var(--paper);color:var(--ink);cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:var(--paper)}
+.count{font-size:14px;color:var(--muted);margin:8px 0 0}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:20px;margin-top:20px}
+.card{background:var(--paper);border:1px solid var(--hair);border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.card .cat{font-size:13px;color:var(--muted)}
+.card p{font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.chip{font-size:13px;background:var(--tint);color:var(--primary);border-radius:9999px;padding:3px 10px;white-space:nowrap}
+.card .lnk{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;font-weight:700}
+/* pubs */
+.pubs{list-style:none;padding:0;margin:28px 0 0;counter-reset:p}
+.pubs li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;padding:16px 0;border-top:1px solid var(--hair)}
+.pubs li:last-child{border-bottom:1px solid var(--hair)}
+.pubs a{font-weight:700;text-decoration:none}
+.pubs a:hover{text-decoration:underline}
+.pubs .v{font-size:14px;color:var(--muted);white-space:nowrap;text-align:right}
+.pubs .t{font-weight:700}
+/* training */
+.train{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:0 40px;margin-top:28px}
+.train div{padding:14px 0;border-top:1px solid var(--hair)}
+.train strong{display:block;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.35}
+.train span{font-size:14px;color:var(--muted)}
+.award{margin-top:28px;background:var(--tint);border-radius:8px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start}
+.award i{flex:none;width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:7px}
+/* media */
+.card{padding:0;overflow:hidden}
+.card .body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.shot{display:block;position:relative;aspect-ratio:16/10;background:#0a2a3a;border:0;border-bottom:1px solid var(--hair);padding:0;margin:0;width:100%;cursor:zoom-in;overflow:hidden}
+.shot img,.shot canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.shot:hover img{transform:scale(1.03)}
+.shot.live{background:#0a2a3a;cursor:default}
+.shot .tag{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:700;background:rgba(10,42,58,.85);color:#f2f7fa;padding:3px 9px;border-radius:9999px}
+.portrait{width:clamp(140px,16vw,200px);height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:8px;display:block;border:4px solid rgba(255,255,255,.08)}
+dialog{border:0;padding:0;background:transparent;max-width:min(1200px,94vw);width:100%}
+dialog::backdrop{background:rgba(6,20,28,.82)}
+dialog figure{margin:0;background:var(--paper);border-radius:8px;overflow:hidden}
+dialog img{display:block;width:100%;height:auto}
+dialog figcaption{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;font-family:var(--display);font-weight:600}
+dialog button{font:700 14px var(--body);min-height:44px;padding:0 16px;border-radius:8px;border:1px solid var(--hair);background:var(--paper);color:var(--ink);cursor:pointer}
+@media(prefers-reduced-motion:reduce){.shot img{transition:none}.shot:hover img{transform:none}}
+/* footer */
+footer{background:var(--deep);color:var(--onDeep)}
+footer h2{color:var(--onDeep)}
+footer .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px 64px;margin-top:28px;align-items:start}
+footer p{color:var(--onDeepMuted)}
+.mail{font-family:var(--display);font-weight:600;font-size:clamp(20px,3vw,28px);color:var(--onDeep);overflow-wrap:anywhere}
+.copy{margin-top:14px;font:700 14px var(--body);min-height:44px;padding:0 16px;border-radius:8px;border:1px solid #6a8494;background:transparent;color:var(--onDeep);cursor:pointer}
+.social{list-style:none;margin:0;padding:0}
+.social li{border-top:1px solid rgba(255,255,255,.12)}
+.social a{display:flex;justify-content:space-between;gap:12px;padding:14px 0;color:var(--onDeep);text-decoration:none;font-weight:700}
+.social a span{color:var(--onDeepMuted);font-weight:400;font-size:14px}
+.fine{font-size:13px;color:var(--onDeepMuted);margin-top:48px}
+.hero .intro{align-items:end}
+@media(max-width:980px){.hero .intro{grid-template-columns:auto minmax(0,1fr)}.hero .intro>div:last-child{grid-column:1/-1}}
+@media(max-width:820px){.cols,footer .grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.hero .intro{grid-template-columns:minmax(0,1fr)}.tl li{grid-template-columns:minmax(0,1fr)}.pubs li{grid-template-columns:minmax(0,1fr)}.pubs .v{text-align:left}.simbar button{margin-left:0}}
+</style>
+</head>
+<body>
+<nav aria-label="Sections"><div class="wrap">
+  <a class="brand" href="#top">Nahom A. Worku</a>
+  <div class="links"><a href="#about">About</a><a href="#projects">Projects</a><a href="#research">Research</a><a href="#training">Training</a><a href="#contact">Contact</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="fig" role="img" aria-label="An animated lattice epidemic simulation: cells turn orange when infected and teal when recovered."><canvas id="sim"></canvas></div>
+    <div class="simbar" aria-live="off">
+      <span class="key"><i style="background:#2f4f60"></i>Susceptible <b id="cS">0</b></span>
+      <span class="key"><i style="background:#e8954a"></i>Infected <b id="cI">0</b></span>
+      <span class="key"><i style="background:#6cc3e0"></i>Recovered <b id="cR">0</b></span>
+      <button id="restart" type="button">New outbreak</button>
+    </div>
+    <p class="cap">A stochastic SIR model on a lattice, the kind of spatial simulation Nahom used to study COVID-19 spread in Ethiopia. Each run is random.</p>
+    <div class="intro">
+      <img class="portrait" src="img/portrait.webp" alt="Portrait of Nahom A. Worku" width="880" height="1100">
+      <div>
+        <h1>Nahom A. Worku</h1>
+        <p class="roles">PhD candidate, Health Economics and Health Services · Healthcare researcher · Data scientist · Systems modeler · Computational scientist · Health metrics · Modeling and simulation</p>
+      </div>
+      <div>
+        <p class="lede">I build quantitative tools (data science, modeling and simulation, scientific computing) to improve public health, engineering systems and operations.</p>
+        <div class="cta"><a class="btn solid" href="#projects">See projects</a><a class="btn line" href="https://github.com/NahomAlemseged">GitHub</a><a class="btn line" href="https://scholar.google.com/citations?user=pouof1wAAAAJ&amp;hl=en">Google Scholar</a></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="band" id="about"><div class="wrap">
+  <h2>About</h2>
+  <div class="cols">
+    <div class="bio">
+      <p>I'm a data science, computation and engineering professional. My research and project work applies modeling tools to systems, health and engineering problems, from national COVID-19 forecasts to deep learning on echocardiograms and efficiency benchmarking for health systems.</p>
+      <p>I trained as a civil engineer, then moved into computational science, health metrics and applied mathematics.</p>
+      <blockquote>“Truth is one; science and faith are two lenses to see it.”</blockquote>
+      <div class="edu">
+        <p class="sub">Education</p>
+        <ul class="tl" id="edu"></ul>
+      </div>
+    </div>
+    <div>
+      <p class="sub">Experience</p>
+      <ul class="tl" id="exp"></ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="band mist" id="projects"><div class="wrap">
+  <h2>Selected projects</h2>
+  <div class="filters" id="filters" role="group" aria-label="Filter projects by area"></div>
+  <p class="count" id="count"></p>
+  <div class="plist" id="plist"></div>
+</div></section>
+
+<section class="band" id="research"><div class="wrap">
+  <h2>Research</h2>
+  <ul class="pubs" id="pubs"></ul>
+  <p class="sub" style="margin-top:32px">In progress</p>
+  <ul class="pubs" id="drafts" style="margin-top:0"></ul>
+</div></section>
+
+<section class="band mist" id="training"><div class="wrap">
+  <h2>Certifications and training</h2>
+  <div class="train" id="train"></div>
+  <div class="award"><i></i><p><strong>Letter of Recognition, Ethiopian Public Health Institute (EPHI).</strong> For contributions to mitigating COVID-19.</p></div>
+</div></section>
+
+<footer class="band" id="contact"><div class="wrap">
+  <h2>Get in touch</h2>
+  <div class="grid">
+    <div>
+      <p>Collaborations, research questions or modeling work: email is best.</p>
+      <p class="mail" style="margin-top:12px"><a href="mailto:nahomal80@gmail.com" style="color:inherit;text-decoration:none">nahomal80@gmail.com</a></p>
+      <button class="copy" id="copy" type="button">Copy email</button>
+    </div>
+    <ul class="social">
+      <li><a href="https://github.com/NahomAlemseged?tab=repositories">GitHub <span>Code and project repos</span></a></li>
+      <li><a href="https://scholar.google.com/citations?user=pouof1wAAAAJ&amp;hl=en">Google Scholar <span>Publications</span></a></li>
+      <li><a href="https://www.researchgate.net/profile/Nahom-Alemseged-Worku">ResearchGate <span>Papers and chapters</span></a></li>
+      <li><a href="https://www.linkedin.com/in/nahom-a-worku-3a828aa6">LinkedIn <span>Profile</span></a></li>
+    </ul>
+  </div>
+  <p class="fine">© Nahom A. Worku</p>
+</div></footer>
+
+<dialog id="lb" aria-label="Project image"><figure><img id="lbImg" alt=""><figcaption><span id="lbCap"></span><button type="button" id="lbClose">Close</button></figcaption></figure></dialog>
+<script>
+{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+
+const edu=[
+ ['Current','PhD candidate, Health Economics and Health Services','Minors in Biostatistics and Data Science'],
+ ['2023–2024','MSc, Applied and Computational Mathematics','University of Washington'],
+ ['2022–2023','MSc, Health Metrics Sciences','University of Washington'],
+ ['2018–2020','MSc, Computational Science','Addis Ababa University'],
+ ['2010–2015','BSc, Civil Engineering','Addis Ababa University']];
+$('edu').innerHTML=edu.map(([t,a,b])=>`<li><time>${esc(t)}</time><div><strong>${esc(a)}</strong><span>${esc(b)}</span></div></li>`).join('');
+
+const exp=[
+ ['Sep 2023 – Sep 2024','Research Assistant','University of Washington, Department of Applied Mathematics','Developing Stochastic Frontier Meta-Analysis (SFMA), a Python econometrics tool with numerical optimization and Bayesian statistics; researching 20 years of inefficiency in under-five mortality reduction across African countries with SFMA and Bayesian model averaging.'],
+ ['Sep 2022 – Sep 2023','Research Assistant','Institute for Health Metrics and Evaluation (IHME)','SFMA development and the under-five mortality efficiency study.'],
+ ['Jun 2022 – Sep 2023','Research Assistant','CARDSS Lab, University of Washington','A machine learning pipeline (DCNN, U-Net segmentation) to detect heart failure in childhood cancer survivors, built for hospital deployment.'],
+ ['Aug 2020 – Sep 2022','Data Specialist','Ethiopian Public Health Institute','One of two experts on national COVID-19 predictions, using stochastic models to inform policymakers. Ranked risk factors and prioritized maternal and child health interventions with causal ML, statistics and agent-based modeling. Wrote two chapters (regression, SVM) of the first accredited national data science training for healthcare professionals.']];
+$('exp').innerHTML=exp.map(([t,r,o,d])=>`<li><time>${esc(t)}</time><div><strong>${esc(r)}</strong><span>${esc(o)}</span><p>${esc(d)}</p></div></li>`).join('');
+
+const G='https://github.com/NahomAlemseged/';
+const projects=[
+ ['ML / AI','Early warning system for respiratory infections','Privacy-preserving synthetic health data with CTGAN, LLMs and probabilistic simulation (over 90% fidelity), micro-simulation for outbreak detection, and anomaly detection on claims data for fraud and resource use.',['CTGAN','LLMs','Micro-simulation','Anomaly detection'],[]],
+ ['ML / AI','Cardiomyopathy prediction and segmentation','A deep learning pipeline that predicts heart failure risk in childhood cancer survivors from echocardiogram images, with semi-supervised automatic labeling.',['U-Net','Autoencoders','DCNN'],[]],
+ ['ML / AI','Literature search agent (LLM)','A prototype that finds, screens and summarizes randomized controlled trials from PubMed, following PRISMA guidelines.',['LLM agents','PubMed','PRISMA'],[['Code',G+'ClinicalTrailAgent']]],
+ ['ML / AI','Countries with similar under-five mortality settings','K-means clustering of countries on SDI, HDI, population density, urban share, life expectancy and literacy.',['K-means','Clustering'],[]],
+ ['Health economics','SFMA benchmarking tool','A Python package for efficiency benchmarking that handles heteroskedasticity and outliers, built with IHME and UW Applied Mathematics.',['Python','Stochastic frontier','Optimization'],[['Code',G+'SFMA_simulations']]],
+ ['Health economics','Under-five mortality efficiency across Africa, 2000–2019','Compares how efficiently African countries reduced under-five mortality using SFMA, with Bayesian model averaging to find sources of inefficiency.',['SFMA','Bayesian model averaging','Streamlit'],[['Live demo','https://frontierdemo.streamlit.app/'],['Code',G+'Capstone_HMS']]],
+ ['Infectious disease','COVID-19 modeling and forecasting','A hybrid deterministic-stochastic MATLAB model with sixteen age groups, covering vaccination, variants and interventions; forecasts were published weekly for Ethiopia.',['MATLAB','Stochastic models','Forecasting'],[['EPHI dashboard','https://vizhub.ephi.gov.et/covid-19/covid_19_comments_mini#ml']]],
+ ['Infectious disease','Lattice-based COVID-19 simulation for Ethiopia','A stochastic spatial model comparing rural and urban spread, used to validate the deterministic model.',['Python','Stochastic simulation','Spatial models'],[]],
+ ['Biostatistics','Under-five mortality estimation in Ethiopia','Spatio-temporal Bayesian regression on Ethiopian Demographic and Health Survey (EDHS) data.',['Bayesian regression','EDHS'],[['Code',G+'HMS_520_FINAL_PROJECT']]],
+ ['Biostatistics','Urine albumin-to-creatinine ratio and bone mineral density','A Bayesian analysis of the association in U.S. general-population data.',['Bayesian analysis'],[['Code',G+'Bayesian_reg_BMD']]],
+ ['Biostatistics','Prenatal care and low birth weight','Compares birth weight between prenatal-care participants and non-participants, adjusting for confounders.',['Regression','Confounding'],[['Code',G+'prenatal_lbw_biost']]],
+ ['Engineering','Construction bid intelligence system','Machine learning and probabilistic forecasting to predict competitor bids and recommend an optimized bid amount.',['Machine learning','Probabilistic forecasting'],[]],
+ ['Engineering','Wind pressure simulation','RANS-based analysis of pressure, velocity and drag on shapes in a synthetic wind tunnel.',['CFD','RANS'],[]],
+ ['Engineering','2D hydrodynamic modeling','A shallow-water simulation with advection-diffusion, wind, Coriolis force and reduced gravity.',['Shallow-water equations','Numerical methods'],[]],
+ ['Dashboards','Police brutality in the U.S.','An interactive Power BI dashboard exploring incident data.',['Power BI'],[]],
+ ['Dashboards','Sales performance','A Power BI sales visualization dashboard.',['Power BI'],[]]];
+const imgs=['p01-early-warning','p02-cardiomyopathy','p03-rct-agent','p04-kmeans','p05-sfma','p06-africa-efficiency','p07-covid','sim:lattice','p09-u5mr-ethiopia','p10-acr-bmd','p11-prenatal','p12-bid','p13-wind','sim:swe','p15-police','p16-sales'];
+projects.forEach((p,i)=>p.push(imgs[i]));
+const cats=['All',...new Set(projects.map(p=>p[0]))];
+let cur='All';
+const drawP=()=>{
+  const list=projects.filter(p=>cur==='All'||p[0]===cur);
+  $('filters').innerHTML=cats.map(c=>`<button type="button" data-c="${esc(c)}" aria-pressed="${c===cur}">${esc(c)}</button>`).join('');
+  $('count').textContent=`${list.length} project${list.length===1?'':'s'}`;
+  $('plist').innerHTML=list.map(([c,t,d,tags,links,im])=>`<article class="card">${im.startsWith('sim:')?`<div class="shot live"><canvas data-sim="${esc(im.slice(4))}" aria-label="Live simulation"></canvas><span class="tag">${im==='sim:swe'?'Live':'Live simulation'}</span></div>`:`<button class="shot" type="button" data-img="${esc(im)}" data-t="${esc(t)}" aria-label="Enlarge image: ${esc(t)}"><img src="img/${esc(im)}-card.webp" alt="${esc(t)}" loading="lazy" width="1200" height="750"></button>`}<div class="body"><span class="cat">${esc(c)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p>${links.length?`<div class="lnk">${links.map(([l,u])=>`<a href="${esc(u)}">${esc(l)} →</a>`).join('')}</div>`:''}<div class="chips">${tags.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div></div></article>`).join('');
+  mountSims();
+};
+$('plist').addEventListener('click',e=>{const b=e.target.closest('button.shot');if(!b)return;$('lbImg').src='img/'+b.dataset.img+'.webp';$('lbImg').alt=b.dataset.t;$('lbCap').textContent=b.dataset.t;$('lb').showModal();});
+$('lbClose').addEventListener('click',()=>$('lb').close());
+$('lb').addEventListener('click',e=>{if(e.target===$('lb'))$('lb').close();});
+$('filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.c;drawP();const n=document.querySelector(`#filters button[data-c="${CSS.escape(cur)}"]`);if(n)n.focus();});
+function sweSim(cv){
+  const cx=cv.getContext('2d'),N=72,g=1,Hd=1,f=0.06,dt=0.35,r=0.002;
+  let eta=new Float32Array(N*N),u=new Float32Array(N*N),v=new Float32Array(N*N),t=0,alive=false,amp=0.3;
+  const off=document.createElement('canvas');off.width=N;off.height=N;const oc=off.getContext('2d'),img=oc.createImageData(N,N);
+  const stops=[[0,[7,30,44]],[0.25,[11,94,126]],[0.45,[70,170,205]],[0.5,[150,210,230]],[0.58,[236,244,246]],[0.75,[242,197,141]],[1,[224,110,20]]];
+  const cmap=x=>{x=Math.max(0,Math.min(1,x));for(let i=1;i<stops.length;i++)if(x<=stops[i][0]){const[a,ca]=stops[i-1],[b,cb]=stops[i],k=(x-a)/(b-a);return[ca[0]+(cb[0]-ca[0])*k,ca[1]+(cb[1]-ca[1])*k,ca[2]+(cb[2]-ca[2])*k];}return stops[6][1];};
+  const drop=(x,y,a,s)=>{for(let j=0;j<N;j++)for(let i=0;i<N;i++){const d=((i-x)**2+(j-y)**2)/(s*s);if(d<9)eta[j*N+i]+=a*Math.exp(-d);}};
+  const init=()=>{eta.fill(0);u.fill(0);v.fill(0);drop(N*0.35,N*0.6,1,6);drop(N*0.7,N*0.3,-0.7,5);};
+  const step=()=>{
+    t++;
+    for(let j=1;j<N-1;j++)for(let i=1;i<N-1;i++){const k=j*N+i;
+      const tau=0.0006*Math.sin(Math.PI*j/N*2+t*0.01);
+      const uo=u[k];u[k]+=dt*(-g*(eta[k+1]-eta[k-1])/2+f*v[k]-r*u[k]+tau);v[k]+=dt*(-g*(eta[k+N]-eta[k-N])/2-f*uo-r*v[k]);}
+    for(let i=0;i<N;i++){u[i]=v[i]=u[(N-1)*N+i]=v[(N-1)*N+i]=0;u[i*N]=v[i*N]=u[i*N+N-1]=v[i*N+N-1]=0;}
+    const ne=eta.slice();
+    for(let j=1;j<N-1;j++)for(let i=1;i<N-1;i++){const k=j*N+i;
+      ne[k]=eta[k]-dt*Hd*((u[k+1]-u[k-1])/2+(v[k+N]-v[k-N])/2)+0.02*(eta[k+1]+eta[k-1]+eta[k+N]+eta[k-N]-4*eta[k]);}
+    for(let i=0;i<N;i++){ne[i]=ne[i+N];ne[(N-1)*N+i]=ne[(N-2)*N+i];ne[i*N]=ne[i*N+1];ne[i*N+N-1]=ne[i*N+N-2];}
+    eta=ne;
+    if(t%150===0)drop(6+Math.random()*(N-12),6+Math.random()*(N-12),(Math.random()<.5?-1:1)*(0.6+Math.random()*0.5),4+Math.random()*3);
+  };
+  const draw=()=>{
+    const W=cv.clientWidth,H=cv.clientHeight,d=devicePixelRatio||1;
+    if(cv.width!==Math.round(W*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d);}
+    cx.setTransform(d,0,0,d,0,0);cx.fillStyle='#0a2a3a';cx.fillRect(0,0,W,H);
+    let m=0;for(let k=0;k<N*N;k++)m=Math.max(m,Math.abs(eta[k]));amp=amp*0.95+Math.max(m,0.05)*0.05;
+    for(let k=0;k<N*N;k++){const c=cmap(0.5+eta[k]/(2*amp));img.data[k*4]=c[0];img.data[k*4+1]=c[1];img.data[k*4+2]=c[2];img.data[k*4+3]=255;}
+    oc.putImageData(img,0,0);
+    const S=H-40,x0=(W-S)/2+6,y0=14;
+    cx.imageSmoothingEnabled=true;cx.save();cx.translate(x0,y0+S);cx.scale(1,-1);cx.drawImage(off,0,0,S,S);cx.restore();
+    // quiver
+    cx.strokeStyle='rgba(255,255,255,0.55)';cx.lineWidth=1;const st=6,cs=S/N;let um=0;
+    for(let k=0;k<N*N;k++)um=Math.max(um,Math.hypot(u[k],v[k]));um=um||1;
+    cx.beginPath();for(let j=3;j<N;j+=st)for(let i=3;i<N;i+=st){const k=j*N+i,px=x0+i*cs,py=y0+S-j*cs,ax=u[k]/um*cs*st*0.9,ay=-v[k]/um*cs*st*0.9;cx.moveTo(px,py);cx.lineTo(px+ax,py+ay);}cx.stroke();
+    // axes + colorbar
+    cx.strokeStyle='rgba(214,234,241,.45)';cx.strokeRect(x0+.5,y0+.5,S,S);
+    cx.fillStyle='rgba(214,234,241,.8)';cx.font='10px Lato, sans-serif';cx.textAlign='right';cx.textBaseline='middle';
+    for(let v2=0;v2<=50;v2+=10){const py=y0+S-v2/50*S;cx.fillText(String(v2),x0-5,py);}
+    cx.textAlign='center';cx.textBaseline='top';for(let v2=0;v2<=50;v2+=10)cx.fillText(String(v2),x0+v2/50*S,y0+S+4);
+    const bx=x0+S+14;for(let i=0;i<S;i++){const c=cmap(1-i/S);cx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;cx.fillRect(bx,y0+i,8,1.5);}
+    cx.fillStyle='rgba(214,234,241,.8)';cx.textAlign='left';cx.textBaseline='middle';cx.fillText('+η',bx+11,y0+5);cx.fillText('−η',bx+11,y0+S-5);
+  };
+  init();for(let i=0;i<120;i++)step();draw();
+  const loop=()=>{if(!alive||!cv.isConnected)return;step();step();draw();requestAnimationFrame(loop);};
+  if(!reduce){const io=new IntersectionObserver(es=>{for(const e of es){const w=alive;alive=e.isIntersecting;if(alive&&!w)loop();}});io.observe(cv);}
+}
+function flowSim(cv){
+  const cx=cv.getContext('2d');let W=0,H=0,d=1,P=[],V=[],t=0,alive=false,lines=[];
+  const U=1.6;
+  const geo=()=>({c:[W*0.27,H*0.5],R:H*0.13});
+  const vel=(x,y)=>{const {c,R}=geo();const X=x-c[0],Y=y-c[1],r2=X*X+Y*Y;if(r2<R*R)return[0,0];
+    const R2=R*R,r4=r2*r2;let u=U*(1-R2*(X*X-Y*Y)/r4),v=-U*2*R2*X*Y/r4;
+    const G=0.55*U*R*Math.sin(t*0.045);u+=G*Y/r2;v-=G*X/r2;
+    for(const w of V){const dx=x-w.x,dy=y-w.y,q=dx*dx+dy*dy+R*R*0.12;u+=-w.g*dy/q;v+=w.g*dx/q;}
+    return[u,v];};
+  const reset=()=>{W=cv.clientWidth;H=cv.clientHeight;d=devicePixelRatio||1;cv.width=Math.round(W*d);cv.height=Math.round(H*d);cx.setTransform(d,0,0,d,0,0);
+    cx.fillStyle='#0a2a3a';cx.fillRect(0,0,W,H);
+    P=Array.from({length:Math.round(W*H/260)},()=>({x:Math.random()*W,y:Math.random()*H,a:Math.random()*120|0}));
+    // base potential-flow streamlines
+    const {c,R}=geo();lines=[];
+    for(let k=1;k<18;k++){let x=0,y=H*k/18,pts=[[x,y]];for(let i=0;i<600&&x<W;i++){const X=x-c[0],Y=y-c[1],r2=X*X+Y*Y,R2=R*R,r4=r2*r2;let u=U*(1-R2*(X*X-Y*Y)/r4),v=-U*2*R2*X*Y/r4;const m=Math.hypot(u,v)||1;x+=u/m*3;y+=v/m*3;pts.push([x,y]);}lines.push(pts);}
+  };
+  const frame=()=>{
+    t++;const {c,R}=geo();
+    if(t%46===0){const s=(t/46)%2?1:-1;V.push({x:c[0]+R*1.25,y:c[1]+s*R*0.55,g:s*U*R*0.9});}
+    for(const w of V){w.x+=U*0.62;}V=V.filter(w=>w.x<W+R*2);
+    cx.fillStyle='rgba(10,42,58,0.16)';cx.fillRect(0,0,W,H);
+    cx.lineWidth=1;cx.strokeStyle='rgba(214,234,241,0.10)';
+    for(const L of lines){cx.beginPath();L.forEach(([x,y],i)=>i?cx.lineTo(x,y):cx.moveTo(x,y));cx.stroke();}
+    cx.lineWidth=1.4;cx.lineCap='round';
+    for(const p of P){const [u,v]=vel(p.x,p.y);const sp=Math.hypot(u,v)/U;const nx=p.x+u,ny=p.y+v;
+      const hot=Math.min(1,Math.max(0,(sp-1)/0.9));
+      cx.strokeStyle=`rgba(${108+hot*124|0},${195-hot*46|0},${224-hot*150|0},0.85)`;
+      cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(nx,ny);cx.stroke();p.x=nx;p.y=ny;
+      if(++p.a>220||p.x>W||p.y<0||p.y>H||(p.x-c[0])**2+(p.y-c[1])**2<R*R){p.x=Math.random()*W*0.15;p.y=Math.random()*H;p.a=0;}}
+    cx.fillStyle='#d6eaf1';cx.beginPath();cx.arc(c[0],c[1],R,0,6.2832);cx.fill();
+    cx.strokeStyle='#e8954a';cx.lineWidth=2;cx.beginPath();cx.arc(c[0],c[1],R,0,6.2832);cx.stroke();
+  };
+  reset();for(let i=0;i<140;i++)frame();
+  const ro2=new ResizeObserver(()=>{if(Math.abs(cv.clientWidth-W)>2){reset();for(let i=0;i<120;i++)frame();}});ro2.observe(cv);
+  const loop=()=>{if(!alive||!cv.isConnected)return;frame();requestAnimationFrame(loop);};
+  if(!reduce){const io=new IntersectionObserver(es=>{for(const e of es){const w=alive;alive=e.isIntersecting;if(alive&&!w)loop();}});io.observe(cv);}
+}
+function mountSims(){
+  for(const cv of document.querySelectorAll('canvas[data-sim]')){
+    if(cv._on)continue;cv._on=1;
+    if(cv.dataset.sim==='flow'){flowSim(cv);continue;}
+    if(cv.dataset.sim==='swe'){sweSim(cv);continue;}
+    const kind=cv.dataset.sim,cx=cv.getContext('2d');
+    const gw=kind==='water'?96:48,gh=kind==='water'?60:30;
+    const off=document.createElement('canvas');off.width=gw;off.height=gh;const oc=off.getContext('2d');const id=oc.createImageData(gw,gh);
+    let st,alive=false,t=0;
+    const init=()=>{
+      if(kind==='lattice'){st={g:new Uint8Array(gw*gh),a:new Uint8Array(gw*gh)};for(let k=0;k<2;k++)st.g[Math.floor(Math.random()*gw*gh)]=1;}
+      else{st={u:new Float32Array(gw*gh),v:new Float32Array(gw*gh)};}
+    };
+    const pal=[[47,79,96],[232,149,74],[108,195,224]];
+    const tick=()=>{
+      t++;
+      if(kind==='lattice'){
+        const g=st.g,n=g.slice();let inf=0;
+        for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){const i=y*gw+x;
+          if(g[i]===0){let c=(x>0&&g[i-1]===1)+(x<gw-1&&g[i+1]===1)+(y>0&&g[i-gw]===1)+(y<gh-1&&g[i+gw]===1);if(c&&Math.random()<1-Math.pow(0.66,c)){n[i]=1;st.a[i]=0;}}
+          else if(g[i]===1){inf++;if(++st.a[i]>6&&Math.random()<.5)n[i]=2;}}
+        st.g=n;if(!inf)init();
+        for(let i=0;i<gw*gh;i++){const c=pal[st.g[i]];id.data.set([c[0],c[1],c[2],255],i*4);}
+      }else{
+        const u=st.u,v=st.v;
+        if(t%28===1){const x=8+Math.floor(Math.random()*(gw-16)),y=6+Math.floor(Math.random()*(gh-12));for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)u[(y+dy)*gw+x+dx]+=1.6*Math.exp(-(dx*dx+dy*dy)/2);}
+        for(let y=1;y<gh-1;y++)for(let x=1;x<gw-1;x++){const i=y*gw+x;v[i]+=0.25*(u[i-1]+u[i+1]+u[i-gw]+u[i+gw]-4*u[i]);v[i]*=0.996;}
+        for(let i=0;i<gw*gh;i++)u[i]+=v[i];
+        for(let i=0;i<gw*gh;i++){const h=Math.max(-1,Math.min(1,u[i]*1.4));const a=(h+1)/2;
+          id.data.set([10+a*(108-10)+Math.max(0,h)*110,42+a*(195-42),58+a*(224-58),255],i*4);}
+      }
+      oc.putImageData(id,0,0);
+      const W=cv.clientWidth,H=cv.clientHeight,d=devicePixelRatio||1;
+      if(cv.width!==Math.round(W*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d);}
+      if(kind==='lattice'){cx.setTransform(1,0,0,1,0,0);cx.fillStyle='#0a2a3a';cx.fillRect(0,0,cv.width,cv.height);const cs=Math.min(cv.width/gw,cv.height/gh),ox=(cv.width-cs*gw)/2+cs/2,oy=(cv.height-cs*gh)/2+cs/2;
+        for(let i=0;i<gw*gh;i++){const v=st.g[i],c=pal[v];cx.fillStyle=`rgb(${c[0]},${c[1]},${c[2]})`;cx.beginPath();cx.arc(ox+(i%gw)*cs,oy+Math.floor(i/gw)*cs,cs*(v===1?.38:.26),0,6.2832);cx.fill();}}
+      else{cx.imageSmoothingEnabled=true;cx.drawImage(off,0,0,cv.width,cv.height);}
+    };
+    init();for(let k=0;k<(kind==='lattice'?18:60);k++)tick();
+    const loop=()=>{if(!alive||!cv.isConnected)return;tick();setTimeout(()=>requestAnimationFrame(loop),kind==='lattice'?120:33);};
+    if(!reduce){const io=new IntersectionObserver(es=>{for(const e of es){const was=alive;alive=e.isIntersecting;if(alive&&!was)loop();}});io.observe(cv);}
+  }
+}
+drawP();
+
+const pubs=[
+ ['Robust nonparametric stochastic frontier analysis','arXiv · 2024','https://arxiv.org/abs/2404.04301'],
+ ['Building a machine learning-assisted echocardiography prediction tool for children at risk for cancer therapy-related cardiomyopathy','Cardio-Oncology · 2024','https://link.springer.com/article/10.1186/s40959-024-00268-4'],
+ ['Estimating global, regional, and national daily and cumulative infections with SARS-CoV-2 through Nov 14, 2021: a statistical analysis','The Lancet · 2022','https://pubmed.ncbi.nlm.nih.gov/35405084/'],
+ ['Estimating excess mortality due to the COVID-19 pandemic: a systematic analysis of COVID-19-related mortality, 2020–21','The Lancet · 2022','https://www.sciencedirect.com/science/article/pii/S0140673621027963'],
+ ['Basics of fluid dynamics','Book chapter','https://www.researchgate.net/publication/350393654_Basics_of_Fluid%20Dynamics'],
+ ['Application of an integral numerical technique for a temperature-dependent thermal conductivity fin with internal heat generation','Journal article','https://www.researchgate.net/publication/347094025'],
+ ['Numerical calculations for a boundary layer flow past a moving vertical porous plate with suction/injection and thermal radiation','Journal article','https://www.researchgate.net/publication/339819400'],
+ ['Numerical discrete-domain integral formulations for generalized Burger-Fisher equation','Journal article','https://www.researchgate.net/publication/339686641_Numerical_Discrete-Domain_Integral_Formulations_for_Generalized_Burger-Fisher_Equation']];
+$('pubs').innerHTML=pubs.map(([t,v,u])=>`<li><a href="${esc(u)}">${esc(t)}</a><span class="v">${esc(v)}</span></li>`).join('');
+const drafts=[['Measuring the performance of under-five mortality reduction across African countries, 2000–2019, using SFMA','Draft'],['Predicting under-five mortality in Ethiopia using machine and deep learning approaches','Draft']];
+$('drafts').innerHTML=drafts.map(([t,v])=>`<li><span class="t">${esc(t)}</span><span class="v">${esc(v)}</span></li>`).join('');
+
+const train=[
+ ['Decision science for effective health investments','Harvard School of Public Health, with Addis Ababa University, MOH, EPHI and GAVI'],
+ ['Data science for scientific research','Addis Ababa University, CODATA and ICTP'],
+ ['Advanced statistical modelling using Stata','National Data Management Center'],
+ ['Modeling and simulation of engineering multi-physics systems','Addis Ababa University, Department of Biomedical Engineering'],
+ ['Introduction to research ethics','TREEE, Clinical Trial Center'],
+ ['Management and leadership','Vision International Congress for Democracy']];
+$('train').innerHTML=train.map(([a,b])=>`<div><strong>${esc(a)}</strong><span>${esc(b)}</span></div>`).join('');
+
+$('copy').addEventListener('click',async()=>{const b=$('copy');try{await navigator.clipboard.writeText('nahomal80@gmail.com');b.textContent='Copied';}catch(e){b.textContent='Select the address above to copy';}setTimeout(()=>{b.textContent='Copy email'},2200);});
+
+/* lattice SIR */
+const cv=$('sim'),ctx=cv.getContext('2d');
+const COL={S:'#2f4f60',I:'#e8954a',R:'#6cc3e0'};
+let cols=0,rows=0,cell=14,grid=null,age=null,timer=null,steps=0;
+const beta=0.32,dur=7;
+const seed=()=>{
+  grid=new Uint8Array(cols*rows);age=new Uint8Array(cols*rows);steps=0;
+  for(let k=0;k<3;k++){const i=Math.floor(Math.random()*cols*rows);grid[i]=1;}
+};
+const step=()=>{
+  const nx=grid.slice();
+  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+    const i=y*cols+x;
+    if(grid[i]===0){
+      let n=0;
+      if(x>0&&grid[i-1]===1)n++;if(x<cols-1&&grid[i+1]===1)n++;
+      if(y>0&&grid[i-cols]===1)n++;if(y<rows-1&&grid[i+cols]===1)n++;
+      if(n&&Math.random()<1-Math.pow(1-beta,n)){nx[i]=1;age[i]=0;}
+    }else if(grid[i]===1){age[i]++;if(age[i]>=dur&&Math.random()<0.5)nx[i]=2;}
+  }
+  grid=nx;steps++;
+};
+const paint=()=>{
+  const W=cv.clientWidth,H=cv.clientHeight,d=devicePixelRatio||1;
+  if(cv.width!==Math.round(W*d)){cv.width=Math.round(W*d);cv.height=Math.round(H*d);}
+  ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,W,H);
+  const ox=(W-cols*cell)/2+cell/2,oy=(H-rows*cell)/2+cell/2;
+  let s=0,inf=0,r=0;
+  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+    const v=grid[y*cols+x];v===0?s++:v===1?inf++:r++;
+    ctx.fillStyle=v===0?COL.S:v===1?COL.I:COL.R;
+    ctx.beginPath();ctx.arc(ox+x*cell,oy+y*cell,v===1?cell*0.34:cell*0.22,0,Math.PI*2);ctx.fill();
+  }
+  $('cS').textContent=s.toLocaleString();$('cI').textContent=inf.toLocaleString();$('cR').textContent=r.toLocaleString();
+  return inf;
+};
+const size=()=>{
+  const W=cv.clientWidth,H=cv.clientHeight;
+  cell=W<520?12:16;
+  const c=Math.max(8,Math.floor(W/cell)),r=Math.max(6,Math.floor(H/cell));
+  if(c!==cols||r!==rows){cols=c;rows=r;seed();if(reduce)for(let k=0;k<40;k++)step();}
+  paint();
+};
+const run=()=>{
+  clearInterval(timer);
+  if(reduce){paint();return;}
+  timer=setInterval(()=>{step();const inf=paint();if(inf===0){clearInterval(timer);setTimeout(()=>{seed();run();},2500);}},110);
+};
+const ro=new ResizeObserver(()=>size());ro.observe(cv);
+$('restart').addEventListener('click',()=>{seed();if(reduce)for(let k=0;k<40;k++)step();paint();run();});
+size();run();
+}
+</script>
+</body>
+</html>
